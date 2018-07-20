@@ -42,7 +42,7 @@ class EventListener implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         if ($this->plugin->list->exists($name)){
-            if ($this->plugin->list->get($name) === 2 || 3){
+            if (($this->plugin->list->get($name) === 2) || ($this->plugin->list->get($name) === 3)){
                 $player->sendMessage("制限されています。");
                 $event->setCancelled();
             }
