@@ -34,7 +34,7 @@ class EventListener implements Listener{
                     $color = "§c⚠§r";
                     break;
             }
-            $player->setNameTag($color . $name);
+            $player->setDisplayName($color . $name);
         }
     }
 
