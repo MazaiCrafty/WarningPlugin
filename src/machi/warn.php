@@ -77,6 +77,7 @@ class warn extends PluginBase{
 			$player->setNameTag($color . $player->getName());
 		}
 		$this->getServer()->broadcastMessage($message);
+		$player->setDisplayName($color . $player->getName());
 	}
 
 	public function onDisable(): void{
