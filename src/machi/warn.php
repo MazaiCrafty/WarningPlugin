@@ -38,7 +38,7 @@ class warn extends PluginBase{
 			$target = $args[0];
 			$type = $args[1];
 
-			if (!($type === self::RELEASE || self::YELLOW_WARNING || self::ORANGE_WARNING || self::RED_WARNING)) return false;
+			if (!($type === self::RELEASE || self::YELLOW_WARNING || self::ORANGE_WARNING || self::PINK_WARNING || self::RED_WARNING)) return false;
 			
 			$this->warning($target, $type, $sender);
 			return true;
