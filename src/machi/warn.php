@@ -14,8 +14,9 @@ class warn extends PluginBase{
 
 	const RELEASE = 0;
 	const YELLOW_WARNING = 1;
-	const ORANGE_WARNING = 2;                        
-	const RED_WARNING = 3;
+	const ORANGE_WARNING = 2;
+	const PINK_WARNING = 3;
+	const RED_WARNING = 4;
 
 	public function onEnable(): void{
 		$this->getLogger()->info("§a[起動] §bWarningPlugin§aを起動しました。");
@@ -67,17 +68,21 @@ class warn extends PluginBase{
 				$color = "§6⚠§r";
 				$message = $sender_name . " が " . $target . " に警告2を付与しました。"; 
 				break;
+			case self::PINK_WARNING:
+				$color = "§d⚠§r"
+				$message = $sender_name . " が " . $target . " に警告3を付与しました。";
+				break;
 			case self::RED_WARNING:
 				$color = "§c⚠§r";
-				$message = $sender_name . " が " . $target . " に警告3を付与しました。"; 
+				$message = $sender_name . " が " . $target . " に警告4を付与しました。"; 
 				break;
 		}
 		$player = $this->getServer()->getPlayer($target);
 		if (!($player === null)){
-			$player->setNameTag($color . $player->getName());
+			$player->setNameTag($color . $player->getNameTag());
 		}
 		$this->getServer()->broadcastMessage($message);
-		$player->setDisplayName($color . $player->getName());
+		$player->setDisplayName($color . $player->getDisplayName());
 	}
 
 	public function onDisable(): void{

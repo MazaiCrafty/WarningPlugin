@@ -4,7 +4,9 @@ namespace machi;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
+use pocketmine\event\player\PlayerChatEvent;
 
 class EventListener implements Listener{
 
@@ -30,6 +32,9 @@ class EventListener implements Listener{
                 case warn::ORANGE_WARNING:
                     $color = "§6⚠§r";
                     break;
+                case warn::PINK_WARNING:
+                    $color = "§d⚠§r";
+                    break;
                 case warn::RED_WARNING:
                     $color = "§c⚠§r";
                     break;
@@ -42,8 +47,19 @@ class EventListener implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         if ($this->plugin->list->exists($name)){
-            if (($this->plugin->list->get($name) === 2) || ($this->plugin->list->get($name) === 3)){
-                $player->sendMessage("制限されています。");
+            if (($this->plugin->list->get($name) === 2) || ($this->plugin->list->get($name) === 3) || ($this->plugin->list->get($name) === 4)){
+                $player->sendMessage("§l§cブロックの変更は制限されています。");
+                $event->setCancelled();
+            }
+        }
+    }
+
+    public function onBlockPlace(BlockPlaceEvent $event): void{
+        $player = $event->getPlayer();
+        $name = $player->getName();
+        if ($this->plugin->list->exists($name)){
+            if (($this->plugin->list->get($name) === 2) || ($this->plugin->list->get($name) === 3) || ($this->plugin->list->get($name) === 4)){
+                $player->sendMessage("§l§cブロックの変更は制限されています。");
                 $event->setCancelled();
             }
         }
@@ -53,8 +69,19 @@ class EventListener implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         if ($this->plugin->list->exists($name)){
-            if ($this->plugin->list->get($name) === 3){
-                $player->sendMessage("制限されています。");
+            if (($this->plugin->list->get($name) === 3) || ($this->plugin->list->get($name) === 4)){
+                $player->sendMessage("§l§cコマンドの使用は制限されています。");
+                $event->setCancelled();
+            }
+        }
+    }
+
+    public function onPlayerChat(PlayerChatEvent $event): void{
+        $player = $event->getPlayer();
+        $name = $player->getName();
+        if ($this->plugin->list->get($name)){
+            if ($this->plugin->list->get($name) === 4){
+                $player->sendMessage("§l§cチャットは制限されています。");
                 $event->setCancelled();
             }
         }
